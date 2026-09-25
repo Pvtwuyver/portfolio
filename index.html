@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Peter's Portfolio</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1117">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <style>
   :root {
     --bg: #0f1117;
@@ -123,7 +127,7 @@
       </div>
     </a>
 
-    <a class="card" href=https://pvtwuyver.github.io/escape/">
+    <a class="card" href="https://pvtwuyver.github.io/escape/">
       <img class="card-thumb" src="https://s.wordpress.com/mshots/v1/https%3A%2F%2Fpvtwuyver.github.io%2Fescape%2F" alt="Escaperooms thumbnail">
       <div class="card-body">
         <h3>Escaperooms Nederland</h3>
@@ -201,6 +205,14 @@
 <footer>
   <p>Built with plain HTML and CSS.</p>
 </footer>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js');
+  });
+}
+</script>
 
 </body>
 </html>
