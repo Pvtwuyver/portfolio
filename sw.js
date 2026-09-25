@@ -1,4 +1,4 @@
-const CACHE_NAME = 'portfolio-cache-v1';
+const CACHE_NAME = 'portfolio-cache-v2';
 const urlsToCache = [
   './',
   './index.html',
@@ -27,8 +27,17 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
+// Network-first: probeer altijd de laatste versie op te halen. Alleen als
+// het netwerk faalt (bijv. offline), valt de pagina terug op de cache.
+// Zo krijgt een bezoeker met verbinding nooit meer een verouderde tegel te zien.
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((response) => response || fetch(event.request))
+    fetch(event.request)
+      .then((response) => {
+        const responseClone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
